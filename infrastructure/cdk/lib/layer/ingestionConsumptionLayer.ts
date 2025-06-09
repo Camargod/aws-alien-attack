@@ -214,6 +214,13 @@ export class IngestionConsumptionLayer extends ResourceAwareConstruct {
             , description: 'API supporting the application ' + props.getApplicationName()
         });
 
+        new APIGTW.UsagePlan(this, props.getApplicationName() + 'API', {
+            name: 'default',
+            throttle: {
+            rateLimit: 100,
+            burstLimit: 2
+        }
+
         new APIGTW.CfnGatewayResponse(this, props.getApplicationName() + 'GTWResponse', {
             restApiId: this.api.ref
             , responseType: 'DEFAULT_4XX'
