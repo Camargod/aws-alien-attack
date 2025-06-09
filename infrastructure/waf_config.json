@@ -1,0 +1,43 @@
+{
+  "Name": "MyWebACLWithXSSRule",
+  "Scope": "CLOUDFRONT",
+  "DefaultAction": {
+    "Allow": {}
+  },
+  "Rules": [
+    {
+      "Name": "BlockXSSInRequestBodyRule",
+      "Priority": 10,
+      "Action": {
+        "Block": {}
+      },
+      "Statement": {
+        "XssMatchStatement": {
+          "FieldToMatch": {
+            "Body": {}
+          },
+          "TextTransformations": [
+            {
+              "Priority": 0,
+              "Type": "HTML_ENTITY_DECODE"
+            },
+            {
+              "Priority": 1,
+              "Type": "LOWERCASE"
+            }
+          ]
+        }
+      },
+      "VisibilityConfig": {
+        "SampledRequestsEnabled": true,
+        "CloudWatchMetricsEnabled": true,
+        "MetricName": "BlockXSSInRequestBodyMetric"
+      }
+    }
+  ],
+  "VisibilityConfig": {
+    "SampledRequestsEnabled": true,
+    "CloudWatchMetricsEnabled": true,
+    "MetricName": "MyWebACLWithXSSRuleMetric"
+  }
+}
